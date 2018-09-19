@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '@/components/HomePage'
-import DetailPage from '@/components/DetailPage'
 import Forecast from '@/components/Forecast'
 
 
@@ -16,8 +15,6 @@ export default new Router({
     },
     {
       path: '/weather',
-      name: 'DetailPage',
-      component: DetailPage
     },
     {
       path: '/search/location',
