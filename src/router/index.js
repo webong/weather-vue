@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from '@/components/HomePage'
 import DetailPage from '@/components/DetailPage'
-import SearchPage from '@/components/SearchPage'
+import Forecast from '@/components/Forecast'
 
 
 Vue.use(Router)
@@ -15,14 +15,14 @@ export default new Router({
       component: HomePage
     },
     {
-      path: '/lo',
+      path: '/weather',
       name: 'DetailPage',
       component: DetailPage
     },
     {
-      path: '/search',
-      name: 'SearchPage',
-      component: SearchPage
+      path: '/search/location',
+      name: 'Forecast',
+      component: Forecast
     }
   ]
 })

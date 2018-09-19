@@ -10,53 +10,54 @@ if (window.navigator.language === 'en-US') {
 }
 
 export default new Vuex.Store({
-      state: {
-        appStatus: {
-          message: null,
-          state: 'loading'
-        },
-        weather: {},
-        geocode: {},
-        coordinates: {
-          latitude: null,
-          longitude: null
-        },
-        cities: [{
-            name: 'Istanbul',
-            woeid: 2344116,
-            weather: {}
-          },
-          {
-            name: 'Berlin',
-            woeid: 638242,
-            weather: {}
-          },
-          {
-            name: 'London',
-            woeid: 44418,
-            weather: {}
-          },
-          {
-            name: 'Helsinki',
-            woeid: 565346,
-            weather: {}
-          },
-          {
-            name: 'Dublin',
-            woeid: 560743,
-            weather: {}
-          },
-          {
-            name: 'Vancouver',
-            woeid: 9807,
-            weather: {}
-          },
-        ],
-        inputQuery: null,
-        locationIcon: 'search',
-        units: units
+  state: {
+    appStatus: {
+      message: null,
+      state: 'loading'
+    },
+    weather: {},
+    geocode: {},
+    coordinates: {
+      latitude: null,
+      longitude: null
+    },
+    cities: [{
+        name: 'Istanbul',
+        woeid: 2344116,
+        weather: {}
       },
-actions: {
+      {
+        name: 'Berlin',
+        woeid: 638242,
+        weather: {}
+      },
+      {
+        name: 'London',
+        woeid: 44418,
+        weather: {}
+      },
+      {
+        name: 'Helsinki',
+        woeid: 565346,
+        weather: {}
+      },
+      {
+        name: 'Dublin',
+        woeid: 560743,
+        weather: {}
+      },
+      {
+        name: 'Vancouver',
+        woeid: 9807,
+        weather: {}
+      },
+    ],
+    inputQuery: null,
+    locationIcon: 'search',
+    units: units
+  },
+
+  actions: {
     appStatus({
       commit
     }, appStatus) {
