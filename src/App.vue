@@ -1,14 +1,20 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <Search />
     <router-view/>
   </div>
 </template>
 
 <script>
+import Search from './components/partials/search.vue'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Search
+  }
 }
+
 </script>
 
 <style>
