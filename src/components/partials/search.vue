@@ -5,13 +5,13 @@
           <div class="input-group mt-1 mb-1">
             <input type="text" id="locationQuery" v-model="query" class="form-control" placeholder="Enter a Location to get Weather Results">
             <div class="input-group-append">
-              <button class="btn btn-primary" type="button" id="button-addon2" @click.prevent="search" >Search</button>
+              <router-link :to="{name: 'search', params: { location: query }}">
+                <button class="btn btn-primary" type="button" id="button-addon2">Search</button>
+              </router-link>
             </div>
           </div>
         </div>
-        <p>Message is: {{ query }}</p>
-
-
+        <!-- <p>Message is: {{ query }}</p> -->
       </section>
 </template>
 

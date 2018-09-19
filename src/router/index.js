@@ -14,11 +14,11 @@ export default new Router({
       component: HomePage
     },
     {
-      path: '/weather',
+      path: '/weather/:woeid',
     },
     {
-      path: '/search/location',
-      name: 'Forecast',
+      path: '/search/:location',
+      name: 'search',
       component: Forecast
     }
   ]
