@@ -61,53 +61,25 @@
 
 export default {
   name: 'forecast',
-      computed: {
-      dewPointLabel () {
-        switch (this.app.units) {
-          case 'us':
-            return 'F'
-          case 'si':
-            return 'C'
-        }
-      },
-      app () {
-        return this.$app.state
-      },
-      visibilityLabel () {
-        switch (this.app.units) {
-          case 'us':
-            return 'miles'
-          case 'si':
-            return 'km'
-        }
-      },
-      windSpeedLabel () {
-        switch (this.app.units) {
-          case 'us':
-            return 'mph'
-          case 'si':
-            return 'kph'
-        }
-      }
+  computed: {
+      
+  },
+  methods: {
+    changeUnits (units) {
+      this.$app.dispatch('units', units)
+      this.$app.dispatch('appStatus', {state: 'loading'})
+      this.$app.dispatch('weather').then(() => this.$app.dispatch('appStatus', {state: 'loaded'}))
     },
-
-    methods: {
-      changeUnits (units) {
-        this.$app.dispatch('units', units)
-        this.$app.dispatch('appStatus', {state: 'loading'})
-        this.$app.dispatch('weather').then(() => this.$app.dispatch('appStatus', {state: 'loaded'}))
-      },
-      date (time, zone) {
-        return moment(time).tz(zone).format('dddd, MMMM Do')
-      },
-      timestamp (time, zone) {
-        return moment(time).tz(zone).format('h:mm A')
-      },
-      toPercentage (value) {
-        return Math.round(value * 100)
-      }
+    date (time, zone) {
+      return moment(time).tz(zone).format('dddd, MMMM Do')
+    },
+    timestamp (time, zone) {
+      return moment(time).tz(zone).format('h:mm A')
+    },
+    toPercentage (value) {
+      return Math.round(value * 100)
     }
-
+  }
 }
 </script>
 
