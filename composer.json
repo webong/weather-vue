@@ -1,0 +1,12 @@
+{
+    "name": "wisdomanthoni/weatherapp",
+    "description": "A vue app using weather.php to call metaweather api",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Wisdom Anthony",
+            "email": "wizitendo10@gmail.com"
+        }
+    ],
+    "require": {}
+}

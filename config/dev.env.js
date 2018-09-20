@@ -4,5 +4,5 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  WEATHER_API: '"https://xeta.000webhostapp.com/weather.php"' 
+  WEATHER_API: '"/weather.php"' 
 })
