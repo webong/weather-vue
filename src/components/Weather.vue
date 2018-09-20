@@ -12,6 +12,11 @@
                      <div>Min: {{ Math.round(city.consolidated_weather[0].min_temp) }}°</div>         
                 </div>
               </div>
+             <div class="d-flex justify-content-center align-items-center mb-2">
+                  <router-link :to="{name: 'weather', params: { woeid: city.woeid }}">
+                     <button type="button" class="btn btn-sm btn-outline-secondary">More Details</button>
+                  </router-link>
+             </div>   
             </div>
        </div>
 </template>
