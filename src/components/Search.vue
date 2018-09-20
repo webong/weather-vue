@@ -43,7 +43,7 @@ export default {
       console.log('route', this.$route.params.location);
       let query = this.$route.params.location
 
-        axios.get(`http://weather-app.test/weather.php?command=search&keyword=${query}`,
+        axios.get(`${process.env.WEATHER_API}?command=search&keyword=${query}`,
            {
               headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -80,7 +80,7 @@ export default {
        getWeather(){
          let vm = this;
          this.searchResult.forEach(function(elem){
-            axios.get(`http://weather-app.test/weather.php?command=location&woeid=${elem.woeid}`,
+            axios.get(`${process.env.WEATHER_API}?command=location&woeid=${elem.woeid}`,
                 {
                     headers: {
                       'Access-Control-Allow-Origin': '*',

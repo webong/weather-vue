@@ -55,7 +55,7 @@ export default {
      };
     let vm = this;
      this.static.forEach(function(elem){
-           axios.get(`http://weather-app.test/weather.php?command=location&woeid=${elem.woeid}`,
+           axios.get(`${process.env.WEATHER_API}?command=location&woeid=${elem.woeid}`,
            {
               headers: {
                 'Access-Control-Allow-Origin': '*',

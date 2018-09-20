@@ -96,7 +96,7 @@ export default {
          let vm = this;
          console.log(this.$route.params.woeid)
          let woeid = this.$route.params.woeid
-            axios.get(`http://weather-app.test/weather.php?command=location&woeid=${woeid}`,
+            axios.get(`${process.env.WEATHER_API}?command=location&woeid=${woeid}`,
                 {
                     headers: {
                       'Access-Control-Allow-Origin': '*',
