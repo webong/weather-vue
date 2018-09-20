@@ -4,5 +4,5 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  WEATHER_API: '"/weather.php"' 
+  WEATHER_API: '"https://thetoad.herokuapp.com/weather.php"'
 })
