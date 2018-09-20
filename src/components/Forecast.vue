@@ -1,87 +1,86 @@
 <template>
-    <!-- <div class="row mb-2">
-        <div class="col-md-6">
-          <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-            <div class="card-body d-flex flex-column align-items-start">
-              <strong class="d-inline-block mb-2 text-primary">World</strong>
-              <h3 class="mb-0">
-                <a class="text-dark" href="#">Featured post</a>
-              </h3>
-              <div class="mb-1 text-muted">Nov 12</div>
-              <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-              <a href="#">Continue reading</a>
-            </div>
-            <img class="card-img-right flex-auto d-none d-lg-block" data-src="holder.js/200x250?theme=thumb" alt="Card image cap">
-          </div>
-        </div>
-    </div> -->
-    <div class="container">  
-            <section v-if="errored">
-                <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
-            </section>
-              <div v-else class="row">
-                  <!-- <img v-if="loading" class="img-fluid loader" src="/static/img/loader.gif" alt=""> -->
-                   <div v-if="loading" class="loading"></div>
-                      <div v-else class="current">
-                            <h1 class="location">{{ weather.title }}</h1>
+    <div>  
+          <section v-if="errored">
+              <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
+          </section>
+          <div v-else class="container">
+                <!-- <img v-if="loading" class="img-fluid loader" src="/static/img/loader.gif" alt=""> -->
+                  <div v-if="loading" class="loading"></div>
 
-                            <div class="row">
-                                <div class="col main">
-                                  <div>{{ date(weather.consolidated_weather[0].created * 1000, weather.timezone) }}</div>
-                                  <div>{{ weather.consolidated_weather[0].weather_state_name }}</div>
-                                  <div class="icon-and-temperature">
-                                    <div class="icon">
-                                      <WeatherIcon :icon="weather.consolidated_weather[0].weather_state_abbr"></WeatherIcon>
-                                    </div>
-                                    <div class="temperature">
-                                      <div>{{ Math.round(weather.consolidated_weather[0].the_temp) }}</div>
-                                      <sup :class="units">
-                                        <button class="us" title="Switch to Fahrenheit" @click="changeUnits('us')">°F</button>
-                                        <button class="si" title="Switch to Celsius" @click="changeUnits('si')">°C</button>
-                                      </sup>
+                  <div v-else class="current">
+                          <h1 class="location">{{ weather.title }}</h1>
+                          <div class="row">
+                                <div class="col mr-5 text-center justify-center">
+                                    <div class="card mx-3 px-4 flex-md-row mb-4 shadow-sm h-md-250">
+                                      <div class="card-body d-flex flex-column align-items-start">
+                                        <strong class="d-inline-block mb-2 text-primary"></strong>
+                                        <h3 class="mb-0">
+                                          <a class="text-dark" href="#">{{ weather.consolidated_weather[0].weather_state_name }}</a>
+                                        </h3>
+                                        <p class="card-text mb-auto">
+                                              <ul class="list-group">
+                                                <li class="list-group-item">
+                                                  Precipitation: <strong>{{ toPercentage(weather.consolidated_weather[0].predictability) }}%</strong>
+                                                </li>
+                                                <li class="list-group-item">
+                                                  Humidity: <strong>{{ toPercentage(weather.consolidated_weather[0].humidity) }}%</strong>
+                                                </li>
+                                                <li class="list-group-item">
+                                                  Wind: <strong>{{ weather.consolidated_weather[0].wind_speed }}</strong>
+                                                </li>
+                                                <li class="list-group-item">
+                                                  Visibility: <strong>{{ weather.consolidated_weather[0].visibility }}</strong>
+                                                </li>
+                                              </ul>
+                                              <!-- <button class="btn btn-primary" title="Switch to Fahrenheit" @click="changeUnits('us')">°F</button> -->
+                                              <button class="btn btn-default" title="Switch to Celsius">                                            <span class="badge badge-dark h1">{{ Math.round(weather.consolidated_weather[0].the_temp) }}</span>
+                                              °C</button>
+                                          </p>
+                                      </div>
+                                      <img class="img-fluid card-img-right flex-auto d-none d-lg-block" style="width: 200px; height: 250px;" :src="'https://www.metaweather.com/static/img/weather/' + weather.consolidated_weather[0].weather_state_abbr + '.svg'" :alt="weather.title">
                                     </div>
                                   </div>
-                                </div>
-
-                                <ul class="col details">
-                                  <li>
-                                    Precipitation: <strong>{{ toPercentage(weather.consolidated_weather[0].predictability) }}%</strong>
-                                  </li>
-                                  <li>
-                                    Humidity: <strong>{{ toPercentage(weather.consolidated_weather[0].humidity) }}%</strong>
-                                  </li>
-                                  <li>
-                                    Wind: <strong>{{ weather.consolidated_weather[0].wind_speed }} {{ windSpeedLabel }}</strong>
-                                  </li>
-                                  <li>
-                                    Visibility: <strong>{{ weather.consolidated_weather[0].visibility }} {{ visibilityLabel }}</strong>
-                                  </li>
-                                </ul>
-                              </div> <!-- end .row -->
-                      </div>
-              </div>  
-      </div>
+                              </div>
+                          </div> 
+                          <!-- end .row -->
+                          <div class="row">
+                              <Weather v-for="data in weather.consolidated_weather" :key="data.id" :data="data"> </Weather>
+                          </div>
+                    </div>
+          </div>  
+    </div>
 </template>
 
 <script>
   import moment from 'moment'
   import 'moment-timezone'
+  import axios from 'axios'
+  import Weather from './partials/weather.vue'
+
 
 export default {
   name: 'Forecast',
+  components: {
+      Weather
+  },
   data(){
     return {
         info: null,
         loading: true,
         errored: false,
-        weather: null
+        weather: null,
     }
+  },
+  created(){
+   },
+  mounted(){
+      // console.log("Hello")
+      this.getWeather()
+
   },
   methods: {
     changeUnits (units) {
-      this.$dispatch('units', units)
-      this.$dispatch('appStatus', {state: 'loading'})
-      this.$dispatch('weather').then(() => this.$dispatch('appStatus', {state: 'loaded'}))
+      
     },
     date (time, zone) {
       return moment(time).tz(zone).format('dddd, MMMM Do')
@@ -125,10 +124,6 @@ export default {
                   }).finally(() => vm.loading = false)
 
        },
-       created(){
-         console.log('Hello World')
-         this.getWeather()
-       }
   }
 }
 </script>
