@@ -7,7 +7,7 @@
                 <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
             </section>
               <div v-else class="row">
-                  <img v-if="loading" class="img-fluid" src="/static/img/loader.gif" alt="">
+                  <img v-if="loading" class="img-fluid loader" src="/static/img/loader.gif" alt="">
 
                     <Weather  v-else v-for="city in cities" :key="city.id" :city="city"> </Weather>
               </div>  
