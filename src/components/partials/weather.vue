@@ -6,6 +6,7 @@
                 <p class="card-text">{{ data.weather_state_name }} - {{ Math.round(data.the_temp) }}°</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">{{ getDate(data.applicable_date) }}</button>
                     <button type="button" class="btn btn-sm btn-outline-secondary">{{ data.applicable_date }}</button>
                   </div>
                      <strong>Max: {{ Math.round(data.max_temp) }}°</strong>
@@ -22,6 +23,9 @@
 </template>
 
 <script>
+  import moment from 'moment'
+  import 'moment-timezone'
+
 export default {
    name: 'Weather',
    props: {
@@ -31,6 +35,12 @@ export default {
       return {
 
       }
+   },
+   methods: {
+     getDate(date){
+       var dt = moment(date, "YYYY-MM-DD HH:mm:ss")
+       return dt.format('dddd');
+     }
    },
    mounted(){
      //console.log(this.data);

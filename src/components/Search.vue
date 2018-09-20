@@ -39,10 +39,10 @@ export default {
     },
     methods: {   
       search(){
-          let vm = this;
+      let vm = this;
       console.log('route', this.$route.params.location);
       let query = this.$route.params.location
-
+      this.loading = true
         axios.get(`${process.env.WEATHER_API}?command=search&keyword=${query}`,
            {
               headers: {
@@ -55,9 +55,10 @@ export default {
               }
             })
             .then(function(response) {
-                console.log(response.data)
+                vm.loading = true
+                //console.log(response.data)
                 vm.searchResult = response.data
-                console.log(response.data.length)
+                //console.log(response.data.length)
                 if(response.data.length === 0){
                   vm.loading = false
                   vm.errored = true
@@ -93,6 +94,7 @@ export default {
                   })
                   .then(function(response) {
                       //console.log(response.data)
+                      vm.loading = true
                       vm.cities.push(response.data)
                   })
                   .catch(error => {
@@ -106,7 +108,11 @@ export default {
                           console.log(error.message);
                       }
                       console.log(error.config);
-                  }).finally(() => vm.loading = false)
+                  }).finally( function () {
+                    vm.loading = true
+                    vm.loading = false
+                    vm.errored = false
+                  })
             })
        }
     },

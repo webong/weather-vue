@@ -6,6 +6,8 @@
                 <p class="card-text">{{ city.consolidated_weather[0].weather_state_name }} - {{ Math.round(city.consolidated_weather[0].the_temp) }}°</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">{{ getDate(city.consolidated_weather[0].applicable_date) }}</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">{{ city.consolidated_weather[0].applicable_date }}</button>
                     <button type="button" class="btn btn-sm btn-outline-secondary">{{ city.title }}</button>
                   </div>
                      <strong>Max: {{ Math.round(city.consolidated_weather[0].max_temp) }}°</strong>
@@ -22,6 +24,9 @@
 </template>
 
 <script>
+  import moment from 'moment'
+  import 'moment-timezone'
+
 export default {
    name: 'Weather',
    props: {
@@ -31,6 +36,12 @@ export default {
       return {
 
       }
+   },
+   methods: {
+     getDate(date){
+       var dt = moment(date, "YYYY-MM-DD HH:mm:ss")
+       return dt.format('dddd');
+     }
    },
    mounted(){
      //console.log(this.city);
