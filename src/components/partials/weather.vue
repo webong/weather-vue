@@ -6,7 +6,7 @@
                 <p class="card-text">{{ data.weather_state_name }} - {{ Math.round(data.the_temp) }}°</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">{{ getDate(data.applicable_date) }}</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">{{ getDate(data.applicable_date) }}</button>
                     <button type="button" class="btn btn-sm btn-outline-secondary">{{ data.applicable_date }}</button>
                   </div>
                      <strong>Max: {{ Math.round(data.max_temp) }}°</strong>
